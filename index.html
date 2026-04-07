@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dodo Padel League - Premium</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="min-h-screen flex flex-col items-center p-4 bg-slate-950">
+
+    <header class="w-full max-w-5xl flex flex-col md:flex-row items-center justify-between mb-8 gap-4 px-4">
+        <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-full bg-orange-600 flex items-center justify-center font-bold text-2xl text-white shadow-lg tronco-glow">D</div>
+            <div class="flex flex-col">
+                <h1 class="text-3xl font-extrabold text-white tracking-tighter tronco-text-glow">DOODO</h1>
+                <h2 class="text-lg font-bold text-slate-400">PADEL LEAGUE</h2>
+            </div>
+        </div>
+        <div class="neo-card p-4 flex flex-col gap-1 items-end w-full md:w-auto">
+            <p class="text-slate-400 text-xs font-bold uppercase tracking-wide">TOTAL DE TRONCOS</p>
+            <p id="total" class="text-4xl font-extrabold text-orange-500 tronco-text-glow">0 <span class="text-slate-600 text-xl">/ 18</span></p>
+        </div>
+    </header>
+
+    <main class="w-full max-w-5xl space-y-6">
+        
+        <button id="troncoBtn" class="neo-btn tronco-glow text-white w-full py-6 flex flex-col items-center justify-center gap-2">
+            <span class="text-4xl">🔥</span>
+            <span class="text-2xl font-black uppercase tracking-tight tronco-text-glow">CARGAR TRONCO</span>
+            <p class="text-orange-200 text-xs italic">Presioná cuando termine el punto</p>
+        </button>
+
+        <div class="flex justify-center">
+            <div class="neo-card px-6 py-3 flex items-center gap-4">
+                <p class="text-slate-400 text-xs font-bold uppercase tracking-widest">FALTAN</p>
+                <p id="faltanNumero" class="text-4xl font-black text-indigo-400 ruleta-text-glow">9</p>
+                <p class="text-slate-400 text-xs font-bold uppercase tracking-widest">PARA LA PRENDA</p>
+            </div>
+        </div>
+
+        <div id="resultado" class="text-center text-orange-400 font-bold h-6 text-sm"></div>
+
+        <div class="neo-card overflow-hidden">
+            <div class="p-4 border-b border-slate-700 bg-slate-800/50 flex items-center gap-3 text-white font-bold">
+                <span>📊</span> TRONCOS DEL PARTIDO
+            </div>
+            <table class="w-full text-left">
+                <thead class="text-slate-500 text-xs uppercase bg-slate-800/30">
+                    <tr>
+                        <th class="px-5 py-4">JUGADOR</th>
+                        <th class="px-5 py-4 text-center">TRONCOS</th>
+                        <th class="px-5 py-4">ESTADO</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-700 text-white">
+                    <tr>
+                        <td class="px-5 py-4 font-bold">Suárez</td>
+                        <td id="c0" class="px-5 py-4 text-center font-black text-2xl text-orange-500">0</td>
+                        <td id="e0" class="px-5 py-4 text-xs text-slate-400">Todo tranquilo 😐</td>
+                    </tr>
+                    <tr>
+                        <td class="px-5 py-4 font-bold">Baghin</td>
+                        <td id="c1" class="px-5 py-4 text-center font-black text-2xl text-blue-500">0</td>
+                        <td id="e1" class="px-5 py-4 text-xs text-slate-400">Todo tranquilo 😐</td>
+                    </tr>
+                    <tr>
+                        <td class="px-5 py-4 font-bold">Valentín</td>
+                        <td id="c2" class="px-5 py-4 text-center font-black text-2xl text-green-500">0</td>
+                        <td id="e2" class="px-5 py-4 text-xs text-slate-400">Todo tranquilo 😐</td>
+                    </tr>
+                    <tr>
+                        <td class="px-5 py-4 font-bold">Rocco</td>
+                        <td id="c3" class="px-5 py-4 text-center font-black text-2xl text-yellow-500">0</td>
+                        <td id="e3" class="px-5 py-4 text-xs text-slate-400">Todo tranquilo 😐</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="alerta" class="neo-card p-4 text-center text-sm font-medium text-red-400 border-red-900/50">
+            Cargando partido...
+        </div>
+
+        <div id="prendaBox" class="hidden neo-card ruleta-glow p-6 text-center space-y-4">
+            <h2 class="text-xl font-black text-white ruleta-text-glow">🎲 RULETA DE PRENDAS</h2>
+            <div class="relative flex justify-center items-center py-4">
+                <div class="absolute bottom-0 z-10 text-3xl" style="transform: translateY(20%); text-shadow: 0 0 10px white;">🔺</div>
+                <canvas id="canvasRuleta" width="300" height="300" class="rounded-full border-4 border-slate-700 shadow-2xl"></canvas>
+            </div>
+            <button id="prendaBtn" class="neo-btn ruleta-glow w-full py-4 text-lg font-black uppercase">¡GIRAR RULETA! 🔄</button>
+            <h3 id="prendaResultado" class="text-xl font-black text-orange-400 italic min-h-[32px] animate-pulse"></h3>
+        </div>
+
+
+        <div class="flex justify-center pt-8 pb-10">
+            <button onclick="resetear()" class="flex items-center gap-2 text-slate-600 hover:text-white text-xs font-bold transition-colors">
+                <span>🔄</span> RESETEAR PARTIDO ACTUAL
+            </button>
+        </div>
+
+    </main>
+
+    <div id="modal" class="modal hidden fixed inset-0 flex items-center justify-center z-50 p-4 bg-black/80 backdrop-blur-sm">
+        <div class="modal-content neo-card border-orange-500 p-8 space-y-4 max-w-xs w-full">
+            <header class="text-center">
+                <span class="text-4xl">🪵</span>
+                <h2 class="text-xl font-black text-white tronco-text-glow mt-2">¿Quién fue?</h2>
+            </header>
+            <div class="grid gap-2">
+                <button onclick="sumarTronco(0)" class="neo-btn hover:bg-orange-600 py-3">Suárez</button>
+                <button onclick="sumarTronco(1)" class="neo-btn hover:bg-blue-600 py-3">Baghin</button>
+                <button onclick="sumarTronco(2)" class="neo-btn hover:bg-green-600 py-3">Valentín</button>
+                <button onclick="sumarTronco(3)" class="neo-btn hover:bg-yellow-600 py-3">Rocco</button>
+            </div>
+            <button onclick="cerrarModal()" class="text-slate-500 text-xs w-full mt-4 uppercase tracking-widest font-bold hover:text-white transition-colors">CANCELAR</button>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
